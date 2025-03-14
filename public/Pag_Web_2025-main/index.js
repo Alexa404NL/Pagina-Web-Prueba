@@ -1,10 +1,10 @@
 //*alert("lololololo")
 
-const pass = document.getElementById("inputpass");
+const password = document.getElementById("inputpass");
 
-const user = document.getElementById("inputussername");
+const username = document.getElementById("inputussername");
 
-const Botonlog = document.getElementById("buttonlogin");
+const btnLogin = document.getElementById("buttonlogin");
 
 /*opcion 1
 
@@ -22,21 +22,29 @@ Botonlog.addEventListener("click",  ()=>{
 
 
 /*opcion 2*/
-
-const login =()=>{
-    if (user.value==="ale" && pass.value==="123") {
-        sessionStorage.setItem("name","pocoyo");
-        window.location ="./pages/main.html";
+const login = async () => {
+    const user = { username: username.value, password: password.value };
+    const respuesta = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(user),
+    });
+    const data = await respuesta.json();
+    if (data.isLogin) {
+      sessionStorage.setItem("user_id", data.user.user_id);
+      sessionStorage.setItem("username", data.user.username);
+      window.location = "/pages/main.html?id=" + data.user_id;
     } else {
-        alert("nao nao tu no tiene acceso");
+      alert("credenciales incorrectas");
     }
-}
+  };
 
-Botonlog.addEventListener("click",  login);
 
-pass.addEventListener("keydown", function(e){
-    console.log("lololololo");
-    if(e.key=="Enter"){
-        login();
+btnLogin.addEventListener("click", login);
+
+password.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      login();
     }
-});
+  });
+  
