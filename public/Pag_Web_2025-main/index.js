@@ -33,7 +33,7 @@ const login = async () => {
     if (data.isLogin) {
       sessionStorage.setItem("user_id", data.user.user_id);
       sessionStorage.setItem("username", data.user.username);
-      window.location = "/pages/main.html?id=" + data.user_id;
+      window.location = "/pages/main.html?id=" + data.user.user_id;
     } else {
       alert("credenciales incorrectas");
     }

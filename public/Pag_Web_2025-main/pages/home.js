@@ -24,6 +24,13 @@ logout.addEventListener("click", () => {
   window.location ="../index.html";
 });
 
+const juego =document.getElementById("cubegame");
+juego.addEventListener("click", (ev)=>{
+  ev.preventDefault();
+   window.location = "/pages/about.html?id=" + sessionStorage.user_id;
+   console.log("me cambio de pag a la del juego")
+})
+
 const chat = document.getElementById("chat");
 const msg = document.getElementById("msg");
 const send = document.getElementById("send");
